@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" th:href="@{../img/favicon.ico}" type="image/x-con">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Handle care - онлайн сервис с доставкой от курьеров из числа волонтёров.</title>
+</head>
+<body>
+<header>
+    <ul class="top-left">
+        <li><a href="../home" class="logo" title="Перейти на главную страницу"><img th:src="@{../img/logo1.png}" alt="logo"
+                                                                                         width="100"></a></li>
+        <li><a href="../recipient">Я получатель</a></li>
+        <li><a href="../deliver">Я доставщик</a></li>
+    </ul>
+    <ul class="top-right">
+        <li><a href="active">Новые заявки</a></li>
+        <li><span  title="Войдите или зарегистрируйтесь">
+              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+        <li><a href="../authorization.html">Войти</a></li>
+    </ul>
+    <div id="popU" onclick="hide()" class="popup_block">
+        <a href="requests">Новые заявки</a>
+        <a href="active">Активные заявки</a>
+        <a href="history">Прошлые заявки</a>
+        <a href="personal">Личные данные</a>
+        <a href="logout">Выход</a>
+    </div>
+</header>
+<div class="container" id="personalContainer">
+    <div class="navbar" id="personalNavbar">
+        <ul>
+            <li><a href="requests">Новые заявки</a></li>
+            <li><a href="active">Активные заявки</a></li>
+            <li><a href="history">Прошлые заявки</a></li>
+            <li><a href="personal">Личные данные</a></li>
+            <li><a href="logout">Выход</a></li>
+        </ul>
+    </div>
+    <h2 th:text="${orders != null} ? ${'Активные заявки'} : ${'В данный момент у вас нет активных заявок'}">В данный момент нет заявок</h2>
+    <div class="activeOrder" th:each="order:${orders}" >
+        <div class="deliverOrder" th:each="recipient:${order.recipient}">
+            <span>Имя пользователя:</span><br>
+            <span th:text="${recipient.name}">Name</span> <br>
+            <span>Фамилия пользователя:</span><br>
+            <span th:text="${recipient.lastName}">Surname</span> <br>
+            <span>Адрес:</span><br>
+            <span th:text="${recipient.address}">Address</span> <br>
+        </div>
+        <div class="orderItem" >
+            <span>Магазин:</span><br>
+            <span th:text="${order.market}">Store</span> <br>
+            <span>Товар:</span><br>
+            <span th:text="${order.item}">Items</span> <br>
+            <span>Адрес магазина:</span><br>
+            <span th:text="${order.address}">Address</span> <br>
+            <form th:method="post"  th:action="@{|/deliverActiveOrder/${order.id}|}" >
+            <button type="submit" name="submit">Заказ выполнен</button>
+            </form>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+
+<footer id="order_footer">
+    <ul class="bot-left">
+        <li><a href="../deliver">Стать курьером</a></li>
+        <li><a href="https://www.govvrn.ru/priemnaa" target="_blank">Контакты</a></li>
+        <li><a href="https://www.govvrn.ru/covid-19" target="_blank">Как мы боремся с COVID‑19</a></li>
+    </ul>
+    <div class="bot-center"><p>Сервис работает на волонтёрских началах при поддержке правительства Воронежской области
+        и анонимных спонсоров. Для оказания услуг необходимо предоставить документы, подтвержающие необходимость в
+        оказании помощи. Для подробностей воспользуйтесь нашими контактами.</p></div>
+    <div class="bot-right">
+        <a href="https://www.instagram.com/" target="_blank" title="Мы в instagram"><img th:src="@{../img/Instagram.d7b7f347.png}" alt="instagram logo"></a>
+        <a href="https://www.facebook.com"  target="_blank" title="Мы в facebook"><img th:src="@{../img/Facebook.ad6af423.png}" alt="facebook logo"></a>
+        <a href="https://www.youtube.com/"  target="_blank" title="Мы в youtube"><img th:src="@{../img/youtube.1e7fdf25.png}" alt="youtube logo"></a>
+        <a href="https://www.tiktok.com/"  target="_blank" title="Мы в ticktock"><img th:src="@{../img/Tiktok.5612f743.png}" alt="ticktock logo"></a>
+        <a href="https://vk.com/"  target="_blank" title="Мы в vkontakte"><img th:src="@{../img/Vkontakte.fed6cf98.png}" alt="vkontakte logo"></a>
+        <a href="https://ok.ru/"  target="_blank" title="Мы в odnoklassniki"><img th:src="@{../img/odnoklassniki.43ef58be.png}" alt="odnoklassniki logo"></a>
+    </div>
+</footer>
+
+<script type="text/javascript" th:src="@{../js/js.js}"></script>
+</body>
+</html>
