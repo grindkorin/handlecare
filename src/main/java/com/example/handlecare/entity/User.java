@@ -26,7 +26,7 @@ public class User {
     private Integer id;
     @Column(nullable = false, length = 20, unique = true)
     private String login;
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String password;
     @Column(nullable = false, length = 20, unique = true)
     private String email;
@@ -41,6 +41,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Status status;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Roles role;

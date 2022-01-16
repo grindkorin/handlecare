@@ -4,6 +4,8 @@ import com.example.handlecare.dto.UserDto;
 import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.User;
+import com.example.handlecare.security.PasswordConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,11 +14,14 @@ import java.util.stream.Collectors;
 @Component
 public class UserDtoConverter {
 
+    @Autowired
+    private PasswordConfig passwordConfig;
+
     public UserDto toDto(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setLogin(user.getLogin());
-        dto.setPassword(user.getPassword());
+        dto.setPassword(passwordConfig.passwordEncoder().encode(user.getPassword()));
         dto.setPhoneNumber(user.getPhoneNumber());
         dto.setName(user.getName());
         dto.setLastName(user.getLastName());
@@ -34,7 +39,7 @@ public class UserDtoConverter {
         User user = new User();
         user.setId(dto.getId());
         user.setLogin(dto.getLogin());
-        user.setPassword(dto.getPassword());
+        user.setPassword( dto.getPassword());
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setName(dto.getName());
         user.setLastName(dto.getLastName());
