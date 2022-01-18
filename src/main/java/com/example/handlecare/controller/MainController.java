@@ -22,14 +22,19 @@ public class MainController {
         return "recipient";
     }
 
-    @GetMapping("deliver")
+    @GetMapping("deliverInfo")
     public String deliver() {
-        return "deliver";
+        return "deliverInfo";
     }
 
 
     @GetMapping("authorization")
     public String authorization() {return "authorization";}
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
 
 }
 

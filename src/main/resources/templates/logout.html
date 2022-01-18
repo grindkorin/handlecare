@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" th:href="@{..img/favicon.ico}" type="image/x-con">
@@ -16,38 +19,27 @@
         <li><a href="../deliverInfo">Я доставщик</a></li>
     </ul>
     <ul class="top-right">
-        <li><a href="newOrder">Опубликовать заявку</a></li>
+        <li><a href="requests">Рассмотреть заявки</a></li>
         <li><span  title="Войдите или зарегистрируйтесь">
-              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+               <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
         <li><a href="../authorization">Войти</a></li>
     </ul>
     <div id="popU" onclick="hide()" class="popup_block">
-        <a href="newOrder">Новая заявка</a>
-        <a href="active">Активные заявки</a>
-        <a href="history">Прошлые заявки</a>
-        <a href="personal">Личные данные</a>
+        <a href="requests">Заявки</a>
+        <a href="allUsers">Пользователи</a>
+        <a href="allDelivers">Курьеры</a>
         <a href="logout">Выход</a>
     </div>
 </header>
 <div class="container">
-    <div class="navbar">
-        <ul>
-            <li><a href="newOrder">Новая заявка</a></li>
-            <li><a href="active">Активные заявки</a></li>
-            <li><a href="history">Прошлые заявки</a></li>
-            <li><a href="personal">Личные данные</a></li>
-            <li><a href="logout">Выход</a></li>
-        </ul>
-    </div>
     <div class="login-box" id="order">
         <h2>Вы уверены, что хотите выйти?</h2>
-        <form>
+        <form action="/logout" method="post">
             <input type="submit" value="Подтвердить">
-            <a href="active">Назад</a>
+            <a href="home">Назад</a>
         </form>
     </div>
 </div>
-
 <footer id="order_footer">
     <ul class="bot-left">
         <li><a href="../deliver">Стать курьером</a></li>

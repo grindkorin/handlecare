@@ -1,15 +1,21 @@
 package com.example.handlecare.security;
 
+import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.User;
+import com.example.handlecare.entity.enums.Roles;
+import com.example.handlecare.service.dbServices.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 public class UserDetailsImpl implements UserDetails {
     private User user;
     private Set<GrantedAuthority> authorities;
+
+
 
     public UserDetailsImpl(User user) {
         this.user = user;
@@ -17,17 +23,26 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<Roles> roles = Collections.singleton(user.getRole());
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Roles role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.name()));
+        }
+        return authorities;
+    }
+
+    public boolean hasRole(String name) {
+        return this.user.getRole().name().equalsIgnoreCase(name);
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getLogin();
     }
 
     @Override

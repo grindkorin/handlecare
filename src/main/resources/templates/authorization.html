@@ -13,7 +13,7 @@
         <li><a href="home" class="logo" title="Перейти на главную страницу"><img th:src="@{img/logo1.png}" alt="logo"
                                                                                  width="100"></a></li>
         <li><a href="recipient">Я получатель</a></li>
-        <li><a href="deliver">Я доставщик</a></li>
+        <li><a href="deliverInfo">Я доставщик</a></li>
     </ul>
     <ul class="top-right">
         <li><a href="personal/newOrder">Опубликовать заявку</a></li>
@@ -34,17 +34,18 @@
     <img th:src="@{img/stars.png}" id="stars">
     <div class="login-box">
         <h2>Вход</h2>
-        <form>
+        <form action="./authorization" method="post">
             <div class="user-box">
-                <input type="text" name="" required="">
+                <input type="text" name="username" required="">
                 <label>Логин</label>
             </div>
             <div class="user-box">
-                <input type="password" name="" required="">
+                <input type="password" name="password" required="">
                 <label>Пароль</label>
             </div>
             <input type="submit" value="Подтвердить">
-            <input type="reset" value="Отмена">
+<!--            <input type="reset" value="Отмена">-->
+            <a href="home">Назад</a>
            <p> Вы еще не с нами? <a href="registration" id="reg"> Зарегистрироваться</a> </p>
         </form>
     </div>
