@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/authorization")
                 //TODO разобраться с кастомным успешным
-//                .successHandler(loginSuccessHandler)
+                .successHandler(loginSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
@@ -62,8 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
+
     @Autowired
-    private LoginSuccessHandler loginSuccessHandler;
+    private CustomLoginSuccessHandler loginSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -95,7 +96,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .username("recipient")
                 .password(passwordConfig.passwordEncoder().encode("recipient"))
                 .roles(RECIPIENT.name())
-//                .authorities(RECIPIENT.getGrantedAuthorities())
                 .build();
         return new InMemoryUserDetailsManager(
                 adminUser, deliverUser, recipientUser

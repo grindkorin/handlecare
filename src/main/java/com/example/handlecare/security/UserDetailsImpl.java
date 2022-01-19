@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 public class UserDetailsImpl implements UserDetails {
+    //TODO UserDto which takes necessary fields from deliver & recipient
     private User user;
     private Set<GrantedAuthority> authorities;
 
