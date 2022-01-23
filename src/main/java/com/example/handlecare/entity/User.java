@@ -3,7 +3,9 @@ package com.example.handlecare.entity;
 
 import com.example.handlecare.entity.enums.Roles;
 import com.example.handlecare.entity.enums.Status;
+import com.example.handlecare.security.PasswordConfig;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -45,11 +47,5 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Roles role;
-
-
-    public User clone(User user) {
-        return new User(user.getId(), user.getLogin(), user.getPassword(), user.getEmail(), user.getName(), user.getLastName(),
-                user.getPhoneNumber(), user.getDistrict(), user.getStatus(), user.getRole());
-    }
 
 }

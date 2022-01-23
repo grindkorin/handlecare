@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" th:href="@{img/favicon.ico}" type="image/x-con">
@@ -22,7 +23,8 @@
                 <img th:src="@{img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
         <li><a href="authorization">Войти</a></li>
     </ul>
-    <div id="popU" onclick="hide()" class="popup_block">
+<!-- sec:authentication="hasAnyAuthority('RECIPIENT')" todo исправить это-->
+    <div sec:authorize="isAuthenticated()"  id="popU" onclick="hide()" class="popup_block">
         <a href="personal/newOrder">Новая заявка</a>
         <a href="personal/active">Активные заявки</a>
         <a href="personal/history">Прошлые заявки</a>

@@ -2,8 +2,10 @@ package com.example.handlecare.controller.personalControllers;
 
 import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
+import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller("/personal/personal")
 public class PersonalController {
 
+
     final
     RecipientServiceImpl recipientService;
 
@@ -23,8 +26,8 @@ public class PersonalController {
     }
 
     @GetMapping("/personal/personal")
-    public String personal(ModelMap model) {
-       Recipient recipient = recipientService.getById(1); //todo session
+    public String personal(Authentication authentication, ModelMap model) {
+        Recipient recipient = recipientService.findByLogin(authentication.getName());
         model.put("recipient", recipient);
         return "/personal/personal";
     }

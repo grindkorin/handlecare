@@ -8,6 +8,7 @@ import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,9 @@ public class HistoryController {
     }
 
     @GetMapping("/deliver/history")
-    public String history(ModelMap model) {
-        List<Order> orders = orderService.findAllByRecipientAndProgression(recipientService.getById(1), Progression.COMPLETE);
+    public String history(Authentication authentication, ModelMap model) {
+        List<Order> orders = orderService.findAllByDeliverAndProgression(
+               deliverService.findByLogin(authentication.getName()), Progression.COMPLETE);
         List<Recipient> recipients = orders.stream().map(Order::getRecipient).collect(Collectors.toList());
         if(!orders.isEmpty())
         model.put("orders", orders);

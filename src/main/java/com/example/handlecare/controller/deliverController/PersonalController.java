@@ -5,6 +5,7 @@ import com.example.handlecare.entity.Order;
 import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,8 +25,8 @@ public class PersonalController {
     }
 
     @GetMapping("/deliver/personal")
-    public String personal(ModelMap model) {
-        Deliver deliver = deliverService.getById(1); //todo session
+    public String personal(Authentication authentication, ModelMap model) {
+        Deliver deliver = deliverService.findByLogin(authentication.getName());
         model.put("deliver", deliver);
         return "/deliver/personal";
     }

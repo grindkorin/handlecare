@@ -4,6 +4,7 @@ import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.User;
 import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.repository.DeliverRepository;
+import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.DeliverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,11 @@ public class DeliverServiceImpl implements DeliverService {
 
     final
     DeliverRepository repository;
+    private final PasswordConfig passwordConfig;
 
-    public DeliverServiceImpl(DeliverRepository repository) {
+    public DeliverServiceImpl(DeliverRepository repository, PasswordConfig passwordConfig) {
         this.repository = repository;
+        this.passwordConfig = passwordConfig;
     }
 
 
@@ -52,6 +55,8 @@ public class DeliverServiceImpl implements DeliverService {
     public Deliver updateDeliver(Deliver deliver) {
         Deliver deliver1 = repository.getById(deliver.getId());
         deliver1.fromUser(deliver1, deliver);
+        deliver1.setPassword(passwordConfig.passwordEncoder().
+                encode(deliver.getPassword()));
         repository.save(deliver1);
         return deliver1;
     }

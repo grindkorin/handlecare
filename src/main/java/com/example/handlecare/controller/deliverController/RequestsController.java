@@ -6,6 +6,7 @@ import com.example.handlecare.entity.enums.Progression;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,6 @@ public class RequestsController {
 
     @GetMapping("/deliver/requests")
     public String active(ModelMap model) {
-        //TODO получение пользователя из сессии
         List<Order> orders = orderService.findAllByProgression(FRESH);
         List<Recipient> recipients = orders.stream().map(Order::getRecipient).collect(Collectors.toList());
         if(!orders.isEmpty())
@@ -46,10 +46,10 @@ public class RequestsController {
     }
 
     @PostMapping(value = "/deliverRequestOrder/{id}")
-    public String confirmOrder(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+    public String confirmOrder(@PathVariable Integer id, Authentication authentication, RedirectAttributes redirectAttributes) {
         Order order = orderService.getById(id);
         order.setProgression(INACTION);
-        order.setDeliver(deliverService.getById(1)); // - todo session
+        order.setDeliver(deliverService.findByLogin(authentication.getName()));
         orderService.save(order);
         return "redirect:/deliver/requests";
     }

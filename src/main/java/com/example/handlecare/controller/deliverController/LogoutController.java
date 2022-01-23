@@ -8,5 +8,5 @@ public class LogoutController {
 
     //TODO логаут в секьюр
     @GetMapping("/deliver/logout")
-    public String logout() {return "/deliver/logout";}
+    public String logout() {return "/logout";}
 }

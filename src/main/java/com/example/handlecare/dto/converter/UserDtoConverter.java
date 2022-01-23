@@ -39,13 +39,12 @@ public class UserDtoConverter {
         User user = new User();
         user.setId(dto.getId());
         user.setLogin(dto.getLogin());
-        user.setPassword( dto.getPassword());
+        user.setPassword(passwordConfig.passwordEncoder().encode(dto.getPassword()));
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setName(dto.getName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
         if (dto.getType().equals("deliver")) {
-
             return new Deliver(user);
         } else {
             Recipient recipient = new Recipient(user);
@@ -57,4 +56,5 @@ public class UserDtoConverter {
     public List<User> allFromDto(List<UserDto> dto) {
         return dto.stream().map(this::fromDto).collect(Collectors.toList());
     }
+
 }

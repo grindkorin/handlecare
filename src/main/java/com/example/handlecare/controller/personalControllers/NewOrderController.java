@@ -7,6 +7,7 @@ import com.example.handlecare.entity.enums.Progression;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,11 @@ public class NewOrderController {
     }
 
     @PostMapping("/postOrder")
-    public String postOrder(@ModelAttribute Order order,
+    public String postOrder(@ModelAttribute Order order, Authentication authentication,
                             Model model) {
         order.setAmount(25.25f);
         order.setProgression(Progression.FRESH);
-        Recipient recipient = recipientService.getById(1); //todo
-        System.out.println(recipient);
+        Recipient recipient = recipientService.findByLogin(authentication.getName());
         order.setRecipient(recipient);
         orderService.save(order);
         model.addAttribute(order);

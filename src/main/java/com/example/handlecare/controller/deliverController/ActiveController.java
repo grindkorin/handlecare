@@ -8,6 +8,7 @@ import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -41,9 +42,10 @@ public class ActiveController {
 
 
     @GetMapping("/deliver/active")
-    public String active(ModelMap model) {
+    public String active(Authentication authentication, ModelMap model) {
         //TODO получение пользователя из сессии
-        List<Order> orders = orderService.findAllByDeliverAndProgression(deliverService.getById(1), Progression.INACTION);
+        List<Order> orders = orderService.findAllByDeliverAndProgression(
+                deliverService.findByLogin(authentication.getName()), Progression.INACTION);
         List<Recipient> recipients = orders.stream().map(Order::getRecipient).collect(Collectors.toList());
         if(!orders.isEmpty())
         model.put("orders", orders);
@@ -54,7 +56,6 @@ public class ActiveController {
 
     @PostMapping(value = "/deliverActiveOrder/{id}")
     public String confirmOrder(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-        System.out.println(id);
         Order order = orderService.getById(id);
         order.setProgression(COMPLETE);
         orderService.save(order);

@@ -5,7 +5,9 @@ import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.repository.RecipientRepository;
+import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.RecipientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +15,13 @@ import java.util.List;
 @Service
 public class RecipientServiceImpl implements RecipientService {
     final
+    PasswordConfig passwordConfig;
+    final
     RecipientRepository repository;
 
-    public RecipientServiceImpl(RecipientRepository repository) {
+    public RecipientServiceImpl(RecipientRepository repository, PasswordConfig passwordConfig) {
         this.repository = repository;
+        this.passwordConfig = passwordConfig;
     }
 
     @Override
@@ -49,6 +54,7 @@ public class RecipientServiceImpl implements RecipientService {
         Recipient recipient1 = repository.getById(recipient.getId());
         recipient1.fromUser(recipient1, recipient);
         recipient1.setAddress(recipient.getAddress());
+        recipient1.setPassword(passwordConfig.passwordEncoder().encode(recipient.getPassword()));
         repository.save(recipient1);
         return recipient1;
     }

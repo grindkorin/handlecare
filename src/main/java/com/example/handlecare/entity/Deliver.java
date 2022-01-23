@@ -1,5 +1,7 @@
 package com.example.handlecare.entity;
 
+import com.example.handlecare.entity.enums.Roles;
+import com.example.handlecare.entity.enums.Status;
 import lombok.*;
 
 
@@ -49,10 +51,12 @@ public class Deliver extends User {
             deliver.setEmail(user.getEmail());
         if (user.getName() != null)
             deliver.setName(user.getName());
-        if(user.getLastName() != null)
-        deliver.setLastName(user.getLastName());
-        if(user.getStatus() != null)
-        deliver.setStatus(user.getStatus());
+        if (user.getLastName() != null)
+            deliver.setLastName(user.getLastName());
+        if (user.getStatus() != null)
+            deliver.setStatus(user.getStatus());
+        if (user.getDistrict() != null)
+            deliver.setDistrict(user.getDistrict());
         deliver.setRole(DELIVER);
     }
 
@@ -67,5 +71,6 @@ public class Deliver extends User {
         this.setStatus(user.getStatus());
         this.setRole(DELIVER);
     }
+
 }
 
