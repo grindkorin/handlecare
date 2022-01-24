@@ -1,0 +1,192 @@
+<!--HEADER ON HOME-->
+<div th:fragment="header">
+    <ul class="top-left">
+        <li><a href="home" class="logo" title="Перейти на главную страницу"><img th:src="@{img/logo1.png}" alt="logo"
+                                                                                 width="100"></a></li>
+        <li><a href="recipient">Я получатель</a></li>
+        <li><a href="deliverInfo">Я доставщик</a></li>
+    </ul>
+    <ul class="top-right">
+        <span sec:authorize="isAnonymous()"> <li><a href="personal/newOrder">Опубликовать заявку</a></li> </span>
+        <span sec:authorize="isAuthenticated()"
+              th:if="${#strings.contains(#authentication.principal.authorities,'RECIPIENT')}">
+            <li><a href="personal/newOrder">Опубликовать заявку</a></li> </span>
+        <span sec:authorize="isAuthenticated()"
+              th:if="${#strings.contains(#authentication.principal.authorities,'DELIVER')}">
+            <li><a href="/deliver/active">Новые заявки</a></li> </span>
+        <span sec:authorize="isAuthenticated()"
+              th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">
+           <li><a href="/administration/requests">Рассмотреть заявки</a></li> </span>
+        <li><span title="Войдите или зарегистрируйтесь">
+                <img th:src="@{img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+        <li>
+            <div sec:authorize="isAnonymous()"><a href="authorization">Войти</a></div>
+            <div sec:authorize="isAuthenticated()"><a href="logout">Выйти</a></div>
+        </li>
+    </ul>
+    <!-- sec:authentication="hasAnyAuthority('RECIPIENT')" не работает
+            th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}" работает-->
+    <div sec:authorize="isAuthenticated()"
+         th:if="${#strings.contains(#authentication.principal.authorities,'RECIPIENT')}" id="popU" onclick="hide()"
+         class="popup_block">
+        <a href="personal/newOrder">Новая заявка</a>
+        <a href="personal/active">Активные заявки</a>
+        <a href="personal/history">Прошлые заявки</a>
+        <a href="personal/personal">Личные данные</a>
+        <a href="logout">Выход</a>
+    </div>
+    <div sec:authorize="isAuthenticated()"
+         th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}" id="popU" onclick="hide()"
+         class="popup_block">
+        <a href="/administration/requests">Заявки</a>
+        <a href="/administration/allUsers">Пользователи</a>
+        <a href="/administration/allDelivers">Курьеры</a>
+        <a href="logout">Выход</a>
+    </div>
+    <div sec:authorize="isAuthenticated()"
+         th:if="${#strings.contains(#authentication.principal.authorities,'DELIVER')}" id="popU" onclick="hide()"
+         class="popup_block">
+        <a href="/deliver/requests">Новые заявки</a>
+        <a href="/deliver/active">Активные заявки</a>
+        <a href="/deliver/history">Прошлые заявки</a>
+        <a href="/deliver/personal">Личные данные</a>
+        <a href="logout">Выход</a>
+    </div>
+</div>
+
+<!--HEADER FOR ADMINISTRATOR-->
+<div th:fragment="administration_header">
+    <ul class="top-left">
+        <li><a href="../home" class="logo" title="Перейти на главную страницу"><img th:src="@{../img/logo1.png}"
+                                                                                    alt="logo"
+                                                                                    width="100"></a></li>
+        <li><a href="../recipient">Я получатель</a></li>
+        <li><a href="../deliverInfo">Я доставщик</a></li>
+    </ul>
+    <ul class="top-right">
+        <li><a href="requests">Рассмотреть заявки</a></li>
+        <li><span title="Войдите или зарегистрируйтесь">
+               <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+        <li>
+            <div sec:authorize="isAnonymous()"><a href="../authorization">Войти</a></div>
+            <div sec:authorize="isAuthenticated()"><a href="../logout">Выйти</a></div>
+        </li>
+        </li>
+    </ul>
+    <div id="popU" onclick="hide()" class="popup_block">
+        <a href="requests">Заявки</a>
+        <a href="allUsers">Пользователи</a>
+        <a href="allDelivers">Курьеры</a>
+        <a href="../logout">Выход</a>
+    </div>
+</div>
+
+<!--HEADER FOR DELIVER-->
+<div th:fragment="deliver_header">
+    <ul class="top-left">
+        <li><a href="../home" class="logo" title="Перейти на главную страницу"><img th:src="@{../img/logo1.png}"
+                                                                                    alt="logo"
+                                                                                    width="100"></a></li>
+        <li><a href="../recipient">Я получатель</a></li>
+        <li><a href="../deliverInfo">Я доставщик</a></li>
+    </ul>
+    <ul class="top-right">
+        <li><a href="active">Новые заявки</a></li>
+        <li><span title="Войдите или зарегистрируйтесь">
+              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+        <li>
+            <div sec:authorize="isAnonymous()"><a href="../authorization">Войти</a></div>
+            <div sec:authorize="isAuthenticated()"><a href="../logout">Выйти</a></div>
+        </li>
+        </li>
+    </ul>
+    <div id="popU" onclick="hide()" class="popup_block">
+        <a href="requests">Новые заявки</a>
+        <a href="active">Активные заявки</a>
+        <a href="history">Прошлые заявки</a>
+        <a href="personal">Личные данные</a>
+        <a href="../logout">Выход</a>
+    </div>
+</div>
+
+
+<!--HEADER FOR RECIPIENT-->
+<div th:fragment="personal_header">
+    <ul class="top-left">
+        <li><a href="../home" class="logo" title="Перейти на главную страницу"><img th:src="@{../img/logo1.png}"
+                                                                                    alt="logo"
+                                                                                    width="100"></a></li>
+        <li><a href="../recipient">Я получатель</a></li>
+        <li><a href="../deliverInfo">Я доставщик</a></li>
+    </ul>
+    <ul class="top-right">
+        <li><a href="newOrder">Опубликовать заявку</a></li>
+        <li><span title="Войдите или зарегистрируйтесь">
+              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+        <li>
+            <div sec:authorize="isAnonymous()"><a href="../authorization">Войти</a></div>
+            <div sec:authorize="isAuthenticated()"><a href="../logout">Выйти</a></div>
+        </li>
+        </li>
+    </ul>
+    <div id="popU" onclick="hide()" class="popup_block">
+        <a href="newOrder">Новая заявка</a>
+        <a href="active">Активные заявки</a>
+        <a href="history">Прошлые заявки</a>
+        <a href="personal">Личные данные</a>
+        <a href="logout">Выход</a>
+    </div>
+</div>
+
+<!--FOOTER FOR HOME-->
+
+<div th:fragment="footer">
+    <ul id="bot-left">
+        <li><a href="deliver">Стать курьером</a></li>
+        <li><a href="https://www.govvrn.ru/priemnaa" target="_blank">Контакты</a></li>
+        <li><a href="https://www.govvrn.ru/covid-19" target="_blank">Как мы боремся с COVID‑19</a></li>
+    </ul>
+    <div id="bot-center"><p>Сервис работает на волонтёрских началах при поддержке правительства Воронежской области
+        и анонимных спонсоров. Для оказания услуг необходимо предоставить документы, подтвержающие необходимость в
+        оказании помощи. Для подробностей воспользуйтесь нашими контактами.</p></div>
+    <div id="bot-right">
+        <a href="https://www.instagram.com/" target="_blank" title="Мы в instagram"><img
+                th:src="@{img/Instagram.d7b7f347.png}" alt="instagram logo"></a>
+        <a href="https://www.facebook.com" target="_blank" title="Мы в facebook"><img
+                th:src="@{img/Facebook.ad6af423.png}" alt="facebook logo"></a>
+        <a href="https://www.youtube.com/" target="_blank" title="Мы в youtube"><img
+                th:src="@{img/youtube.1e7fdf25.png}" alt="youtube logo"></a>
+        <a href="https://www.tiktok.com/" target="_blank" title="Мы в ticktock"><img th:src="@{img/Tiktok.5612f743.png}"
+                                                                                     alt="ticktock logo"></a>
+        <a href="https://vk.com/" target="_blank" title="Мы в vkontakte"><img th:src="@{img/Vkontakte.fed6cf98.png}"
+                                                                              alt="vkontakte logo"></a>
+        <a href="https://ok.ru/" target="_blank" title="Мы в odnoklassniki"><img
+                th:src="@{img/odnoklassniki.43ef58be.png}" alt="odnoklassniki logo"></a>
+    </div>
+</div>
+
+<!--FOOTER FOR USERS-->
+<div th:fragment="user_footer">
+    <ul id="bot-left">
+        <li><a href="../deliver">Стать курьером</a></li>
+        <li><a href="https://www.govvrn.ru/priemnaa" target="_blank">Контакты</a></li>
+        <li><a href="https://www.govvrn.ru/covid-19" target="_blank">Как мы боремся с COVID‑19</a></li>
+    </ul>
+    <div id="bot-center"><p>Сервис работает на волонтёрских началах при поддержке правительства Воронежской области
+        и анонимных спонсоров. Для оказания услуг необходимо предоставить документы, подтвержающие необходимость в
+        оказании помощи. Для подробностей воспользуйтесь нашими контактами.</p></div>
+    <div id="bot-right">
+        <a href="https://www.instagram.com/" target="_blank" title="Мы в instagram"><img
+                th:src="@{../img/Instagram.d7b7f347.png}" alt="instagram logo"></a>
+        <a href="https://www.facebook.com" target="_blank" title="Мы в facebook"><img
+                th:src="@{../img/Facebook.ad6af423.png}" alt="facebook logo"></a>
+        <a href="https://www.youtube.com/" target="_blank" title="Мы в youtube"><img
+                th:src="@{../img/youtube.1e7fdf25.png}" alt="youtube logo"></a>
+        <a href="https://www.tiktok.com/" target="_blank" title="Мы в ticktock"><img
+                th:src="@{../img/Tiktok.5612f743.png}" alt="ticktock logo"></a>
+        <a href="https://vk.com/" target="_blank" title="Мы в vkontakte"><img th:src="@{../img/Vkontakte.fed6cf98.png}"
+                                                                              alt="vkontakte logo"></a>
+        <a href="https://ok.ru/" target="_blank" title="Мы в odnoklassniki"><img
+                th:src="@{../img/odnoklassniki.43ef58be.png}" alt="odnoklassniki logo"></a>
+    </div>
+</div>

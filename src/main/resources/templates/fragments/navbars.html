@@ -1,0 +1,37 @@
+<!--ADMINISTRATION NAVBAR-->
+<div th:fragment="admin_navbar">
+    <div class="navbar">
+        <ul>
+            <li><a href="requests">Заявки пользователей</a></li>
+            <li><a href="allUsers">Все пользователи</a></li>
+            <li><a href="allDelivers">Все курьеры</a></li>
+            <li><a href="../logout">Выход</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--DELIVER NAVBAR-->
+<div th:fragment="deliver_navbar">
+    <div class="navbar">
+        <ul>
+            <li><a href="requests">Новые заявки</a></li>
+            <li><a href="active">Активные заявки</a></li>
+            <li><a href="history">Прошлые заявки</a></li>
+            <li><a href="personal">Личные данные</a></li>
+            <li><a href="../logout">Выход</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--RECIPIENT NAVBAR-->
+<div th:fragment="recipient_navbar">
+    <div class="navbar">
+        <ul>
+            <li><a href="newOrder">Новая заявка</a></li>
+            <li><a href="active">Активные заявки</a></li>
+            <li><a href="history">Прошлые заявки</a></li>
+            <li><a href="personal">Личные данные</a></li>
+            <li><a href="../logout">Выход</a></li>
+        </ul>
+    </div>
+</div>
