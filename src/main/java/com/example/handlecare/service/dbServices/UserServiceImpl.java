@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDtoConverter converter;
 
-    @Autowired
-    RegistrationService registrationService;
+  //  @Autowired
+   // RegistrationService registrationService;
 
     @Autowired
     EmailSenderImpl emailSender;
@@ -94,10 +94,5 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    //TODO посмотреть, что за тип, возможно привязку токена придется менять, будет ли вообще работать?
-    public void sendEmail(UserDto dto, ConfirmationToken token) {
-        registrationService.link(token);
-        String email = registrationService.buildEmail(dto.getName(), registrationService.link(token));
-        emailSender.send(dto.getEmail(), email);
-    }
+
 }

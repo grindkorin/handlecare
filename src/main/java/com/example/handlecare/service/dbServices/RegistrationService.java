@@ -1,9 +1,11 @@
 package com.example.handlecare.service.dbServices;
 
+import com.example.handlecare.dto.UserDto;
 import com.example.handlecare.security.email.EmailSenderImpl;
 import com.example.handlecare.security.token.ConfirmationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.time.LocalDateTime;
 
@@ -18,7 +20,7 @@ public class RegistrationService {
 
 
 
-    //       @Transactional
+       //    @Transactional
     public void confirmToken(String token) {
         ConfirmationToken confirmationToken = tokenService.findByToken(token);
         if (confirmationToken == null)
@@ -38,9 +40,13 @@ public class RegistrationService {
         }
     }
 
-    public String link(ConfirmationToken token) {
-        return "http://localhost:8080/registration/confirm?token=" + token;
+        //TODO посмотреть, что за тип, возможно привязку токена придется менять, будет ли вообще работать?
+    public void sendEmail(UserDto dto, ConfirmationToken token) {
+        String link = "http://localhost:8080/registration/confirm?token=" + token.getToken();
+        String email = buildEmail(dto.getName(), link);
+        emailSender.send(dto.getEmail(), email);
     }
+
 
     //TODO урод какой-то
     public String buildEmail(String name, String link) {

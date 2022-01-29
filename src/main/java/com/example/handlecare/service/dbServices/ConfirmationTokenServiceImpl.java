@@ -41,8 +41,8 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
         return repository.findByToken(token);
     }
 
-    public void saveAndBondToken(User user) {
-        repository.save(bondNewToken(user));
+    public ConfirmationToken saveAndBondToken(User user) {
+       return repository.save(bondNewToken(user));
     }
 
 

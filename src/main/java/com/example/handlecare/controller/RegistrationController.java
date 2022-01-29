@@ -2,6 +2,7 @@ package com.example.handlecare.controller;
 
 import com.example.handlecare.dto.UserDto;
 import com.example.handlecare.entity.User;
+import com.example.handlecare.security.token.ConfirmationToken;
 import com.example.handlecare.service.ConfirmationTokenService;
 import com.example.handlecare.service.dbServices.ConfirmationTokenServiceImpl;
 import com.example.handlecare.service.dbServices.RegistrationService;
@@ -39,7 +40,8 @@ public class RegistrationController {
                            Model model) {
         try{
             User registered = userService.registerNewUserAccount(dto);
-            tokenService.saveAndBondToken(registered);
+            ConfirmationToken confirmationToken = tokenService.saveAndBondToken(registered);
+               registrationService.sendEmail(dto, confirmationToken);
             model.addAttribute("user", registered);
             return "redirect:/authorization";
         }catch (Exception e){
