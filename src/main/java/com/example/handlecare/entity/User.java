@@ -43,9 +43,24 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Status status;
+    @Column(nullable = false, length = 5)
+    private Boolean confirmedMail = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Roles role;
 
+    public User(Integer id, String login, String password, String email, String name, String lastName,
+                String phoneNumber, String district, Status status, Roles role) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.district = district;
+        this.status = status;
+        this.role = role;
+    }
 }

@@ -3,6 +3,8 @@ package com.example.handlecare.entity;
 import com.example.handlecare.entity.enums.Roles;
 import com.example.handlecare.entity.enums.Status;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 import javax.persistence.*;
@@ -23,8 +25,8 @@ import static com.example.handlecare.entity.enums.Roles.DELIVER;
 public class Deliver extends User {
 
     @OneToMany(mappedBy = "deliver",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Order> orders;
 
     @Override
@@ -71,6 +73,7 @@ public class Deliver extends User {
         this.setStatus(user.getStatus());
         this.setRole(DELIVER);
     }
+
 
 }
 

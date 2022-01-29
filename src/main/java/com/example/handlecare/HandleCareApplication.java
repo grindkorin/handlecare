@@ -32,13 +32,13 @@ public class HandleCareApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void applicationReady() {
-//        Deliver deliver = new Deliver(
-//                new User(0, "admin", passwordConfig.passwordEncoder().encode("admin"),
-//                        "sample@mail.ru", "admin", "admin",
-//                        "+112", "this", Status.ACTIVE, Roles.ADMIN)
-//        );
-//        deliver.setRole(Roles.ADMIN);
-//        deliverService.save(deliver);
+        Deliver deliver = new Deliver(
+                new User(0, "admin", passwordConfig.passwordEncoder().encode("admin"),
+                        "sample@mail.ru", "admin", "admin",
+                        "+112", "this", Status.ACTIVE, Roles.ADMIN)
+        );
+        deliver.setRole(Roles.ADMIN);
+        deliverService.save(deliver);
     }
 
 }

@@ -2,6 +2,8 @@ package com.example.handlecare.entity;
 
 import com.example.handlecare.entity.enums.Roles;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,8 +26,8 @@ public class Recipient extends User {
     private String address;
 
     @OneToMany(mappedBy = "recipient",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Order> orders;
 
     @Override

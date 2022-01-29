@@ -2,11 +2,18 @@ package com.example.handlecare.service.dbServices;
 
 import com.example.handlecare.dto.UserDto;
 import com.example.handlecare.dto.converter.UserDtoConverter;
+import com.example.handlecare.entity.Deliver;
+import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.User;
 import com.example.handlecare.repository.UserRepository;
+import com.example.handlecare.security.email.EmailSender;
+import com.example.handlecare.security.email.EmailSenderImpl;
+import com.example.handlecare.security.token.ConfirmationToken;
 import com.example.handlecare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 import static com.example.handlecare.entity.enums.Status.*;
 
@@ -25,6 +32,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDtoConverter converter;
 
+    @Autowired
+    RegistrationService registrationService;
+
+    @Autowired
+    EmailSenderImpl emailSender;
 
 
     @Override
@@ -35,13 +47,14 @@ public class UserServiceImpl implements UserService {
         if (loginCheck(login) & emailCheck(email) & phoneNumberCheck(phoneNumber)) {
             User user = converter.fromDto(userDto);
             user.setStatus(UNCHECKED);
-            return userRepository.save(user);
+            //return userRepository.save(user);
+            return user;
         }
         return null;
     }
 
     private boolean loginCheck(String login) throws Exception {
-        if ((deliverService.findByLogin (login) != null)) {
+        if ((deliverService.findByLogin(login) != null)) {
             throw new Exception("Курьер с логином\"" + login + "\" уже существует");
         } else if ((recipientService.findByLogin(login) != null)) {
             throw new Exception("Пользователь с логином\"" + login + "\" уже существует");
@@ -68,6 +81,23 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public void setMailConfirmed(String email) {
+        Deliver deliver = deliverService.findByEmail(email);
+        if (deliver != null) {
+            deliver.setConfirmedMail(true);
+            deliverService.save(deliver);
+        }else{
+            Recipient recipient = recipientService.findByEmail(email);
+            recipient.setConfirmedMail(true);
+            recipientService.save(recipient);
+        }
+    }
 
 
+    //TODO посмотреть, что за тип, возможно привязку токена придется менять, будет ли вообще работать?
+    public void sendEmail(UserDto dto, ConfirmationToken token) {
+        registrationService.link(token);
+        String email = registrationService.buildEmail(dto.getName(), registrationService.link(token));
+        emailSender.send(dto.getEmail(), email);
+    }
 }
