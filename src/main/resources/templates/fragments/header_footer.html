@@ -18,7 +18,8 @@
               th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">
            <li><a href="/administration/requests">Рассмотреть заявки</a></li> </span>
         <li><span title="Войдите или зарегистрируйтесь">
-                <img th:src="@{img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+                <img th:src="@{img/userpic.png}" height="20" onclick="hide()" id="userPic"></span>
+            <span sec:authorize="isAuthenticated()" id="userName" onclick="hide()"  th:text ="${#authentication.getPrincipal().getUser().getName()}"></span></li>
         <li>
             <div sec:authorize="isAnonymous()"><a href="authorization">Войти</a></div>
             <div sec:authorize="isAuthenticated()"><a href="logout">Выйти</a></div>
@@ -66,7 +67,8 @@
     <ul class="top-right">
         <li><a href="requests">Рассмотреть заявки</a></li>
         <li><span title="Войдите или зарегистрируйтесь">
-               <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+               <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span>
+            <span id="userName" onclick="hide()"  th:text ="${#authentication.getPrincipal().getUser().getName()}"></span></li>
         <li>
             <div sec:authorize="isAnonymous()"><a href="../authorization">Войти</a></div>
             <div sec:authorize="isAuthenticated()"><a href="../logout">Выйти</a></div>
@@ -93,7 +95,8 @@
     <ul class="top-right">
         <li><a href="active">Новые заявки</a></li>
         <li><span title="Войдите или зарегистрируйтесь">
-              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span>
+            <span id="userName" onclick="hide()"  th:text ="${#authentication.getPrincipal().getUser().getName()}"></span></li>
         <li>
             <div sec:authorize="isAnonymous()"><a href="../authorization">Войти</a></div>
             <div sec:authorize="isAuthenticated()"><a href="../logout">Выйти</a></div>
@@ -122,7 +125,8 @@
     <ul class="top-right">
         <li><a href="newOrder">Опубликовать заявку</a></li>
         <li><span title="Войдите или зарегистрируйтесь">
-              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span></li>
+              <img th:src="@{../img/userpic.png}" height="20" onclick="hide()" id="userPic"></span>
+            <span id="userName" onclick="hide()"  th:text ="${#authentication.getPrincipal().getUser().getName()}"></span></li>
         <li>
             <div sec:authorize="isAnonymous()"><a href="../authorization">Войти</a></div>
             <div sec:authorize="isAuthenticated()"><a href="../logout">Выйти</a></div>
@@ -134,7 +138,7 @@
         <a href="active">Активные заявки</a>
         <a href="history">Прошлые заявки</a>
         <a href="personal">Личные данные</a>
-        <a href="logout">Выход</a>
+        <a href="../logout">Выход</a>
     </div>
 </div>
 

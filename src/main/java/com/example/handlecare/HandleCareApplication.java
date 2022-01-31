@@ -1,11 +1,6 @@
 package com.example.handlecare;
 
 
-import com.example.handlecare.entity.Deliver;
-import com.example.handlecare.entity.User;
-import com.example.handlecare.entity.enums.Roles;
-import com.example.handlecare.entity.enums.Status;
-import com.example.handlecare.repository.UserRepository;
 import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
@@ -32,13 +27,13 @@ public class HandleCareApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void applicationReady() {
-        Deliver deliver = new Deliver(
-                new User(0, "admin", passwordConfig.passwordEncoder().encode("admin"),
-                        "sample@mail.ru", "admin", "admin",
-                        "+112", "this", Status.ACTIVE, Roles.ADMIN)
-        );
-        deliver.setRole(Roles.ADMIN);
-        deliverService.save(deliver);
+//        Deliver deliver = new Deliver(
+//                new User(0, "admin", passwordConfig.passwordEncoder().encode("admin"),
+//                        "sample@mail.ru", "admin", "admin",
+//                        "+112", "this", Status.ACTIVE, Roles.ADMIN)
+//        );
+//        deliver.setRole(Roles.ADMIN);
+//        deliverService.save(deliver);
     }
 
 }

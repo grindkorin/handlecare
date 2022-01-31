@@ -4,7 +4,6 @@ package com.example.handlecare.service;
 import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.enums.Status;
 
-
 import java.util.List;
 
 public interface RecipientService {

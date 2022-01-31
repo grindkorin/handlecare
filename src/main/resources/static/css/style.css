@@ -56,12 +56,21 @@ header ul li {
     margin-left: 25px;
 }
 
-header ul li a {
+header ul li a  {
     text-decoration: none;
     font-size: 1.2em;
     color: #fff;
 }
 
+#userName{
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #fff;
+}
+
+#userName:hover {
+    cursor: pointer;
+}
 
 section {
     position: relative;
@@ -247,18 +256,19 @@ footer img:hover {
 }
 
 
-.popup_block {
+/*.popup_block  {*/
+#popU{
     display: none;
     position: absolute;
-    right: 25px;
-    top: 90px;
+    margin-left: 80%;
+    top: 110px;
     flex-direction: column;
-    border-radius: 12px;
+    /*border-radius: 12px;*/
     background: #4ea4d5;
     width: 200px;
-    align-items: center;
+    align-items: flex-start;
     border: solid #042444 1px;
-    z-index: 10000001;
+    /*z-index: 1;*/
 }
 
 #userPic:hover {
@@ -267,7 +277,7 @@ footer img:hover {
 
 .popup_block a {
     text-decoration: none;
-    margin: 10px;
+    margin: 5px;
     color: antiquewhite;
     font-size: 1.2em;
 }

@@ -2,11 +2,9 @@ package com.example.handlecare.security.token;
 
 import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
-import com.example.handlecare.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

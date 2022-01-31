@@ -1,7 +1,9 @@
 package com.example.handlecare.entity;
 
-import com.example.handlecare.entity.enums.Roles;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -9,7 +11,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.handlecare.entity.enums.Roles.DELIVER;
 import static com.example.handlecare.entity.enums.Roles.RECIPIENT;
 
 

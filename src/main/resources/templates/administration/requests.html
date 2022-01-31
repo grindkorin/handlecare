@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" th:href="@{..img/favicon.ico}" type="image/x-con">
+    <link rel="icon" th:href="@{../img/favicon.ico}" type="image/x-con">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <title>Handle care - онлайн сервис с доставкой от курьеров из числа волонтёров.</title>
 </head>
@@ -19,7 +19,7 @@
     <table id="adminTable">
         <tr>
             <th>Логин</th>
-            <th>Пароль</th>
+<!--            <th>Пароль</th>-->
             <th>E-mail</th>
             <th>Имя</th>
             <th>Фамилия</th>
@@ -29,7 +29,7 @@
         </tr>
         <tr th:each="deliver:${delivers}">
             <td th:text="${deliver.login}"></td>
-            <td th:text="${deliver.password}"></td>
+<!--            <td th:text="${deliver.password}"></td>-->
             <td th:text="${deliver.email}"></td>
             <td th:text="${deliver.name}"></td>
             <td th:text="${deliver.lastName}"></td>
@@ -58,7 +58,7 @@
     <table id="adminTable">
         <tr>
             <th>Логин</th>
-            <th>Пароль</th>
+<!--            <th>Пароль</th>-->
             <th>E-mail</th>
             <th>Имя</th>
             <th>Фамилия</th>
@@ -68,7 +68,7 @@
         </tr>
         <tr th:each="recipient:${recipients}">
             <td th:text="${recipient.login}"></td>
-            <td th:text="${recipient.password}"></td>
+<!--            <td th:text="${recipient.password}"></td>-->
             <td th:text="${recipient.email}"></td>
             <td th:text="${recipient.name}"></td>
             <td th:text="${recipient.lastName}"></td>

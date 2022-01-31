@@ -1,28 +1,23 @@
 package com.example.handlecare.controller.deliverController;
 
-import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Order;
 import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.enums.Progression;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.handlecare.entity.enums.Progression.*;
+import static com.example.handlecare.entity.enums.Progression.COMPLETE;
 
 @Controller("/deliver/active")
 public class ActiveController {

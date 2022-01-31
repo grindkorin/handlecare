@@ -1,10 +1,7 @@
 package com.example.handlecare.controller.personalControllers;
 
-import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
-import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

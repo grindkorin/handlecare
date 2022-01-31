@@ -2,12 +2,12 @@ package com.example.handlecare.security;
 
 
 import com.example.handlecare.entity.User;
-import com.example.handlecare.entity.enums.Roles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,6 +47,14 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getUsername() {
         return user.getLogin();
+    }
+
+    public String getName() {
+        return user.getName();
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     @Override

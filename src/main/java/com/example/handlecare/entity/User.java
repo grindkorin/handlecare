@@ -3,15 +3,9 @@ package com.example.handlecare.entity;
 
 import com.example.handlecare.entity.enums.Roles;
 import com.example.handlecare.entity.enums.Status;
-import com.example.handlecare.security.PasswordConfig;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-
-import java.util.Set;
-
-import static com.example.handlecare.entity.enums.Status.UNCHECKED;
 
 @Getter
 @Setter

@@ -6,15 +6,12 @@ import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.enums.Progression;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Collections;
 
 @Controller("/personal/newOrder")
 public class NewOrderController {

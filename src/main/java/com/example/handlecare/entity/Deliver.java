@@ -1,13 +1,15 @@
 package com.example.handlecare.entity;
 
-import com.example.handlecare.entity.enums.Roles;
-import com.example.handlecare.entity.enums.Status;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 

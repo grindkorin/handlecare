@@ -1,7 +1,6 @@
 package com.example.handlecare.repository;
 
 import com.example.handlecare.entity.Deliver;
-import com.example.handlecare.entity.Order;
 import com.example.handlecare.entity.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

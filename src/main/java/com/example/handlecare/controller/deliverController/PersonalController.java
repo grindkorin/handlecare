@@ -1,10 +1,7 @@
 package com.example.handlecare.controller.deliverController;
 
 import com.example.handlecare.entity.Deliver;
-import com.example.handlecare.entity.Order;
-import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

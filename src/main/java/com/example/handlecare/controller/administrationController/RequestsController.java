@@ -7,13 +7,15 @@ import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import java.util.List;
 
-import static com.example.handlecare.entity.enums.Status.*;
+import static com.example.handlecare.entity.enums.Status.ACTIVE;
+import static com.example.handlecare.entity.enums.Status.UNCHECKED;
 
 @Controller("administration/requests")
 public class RequestsController {

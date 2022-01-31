@@ -3,7 +3,9 @@ package com.example.handlecare.dto;
 
 import com.example.handlecare.entity.enums.Roles;
 import com.example.handlecare.entity.enums.Status;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

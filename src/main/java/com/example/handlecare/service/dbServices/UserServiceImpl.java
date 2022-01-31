@@ -6,16 +6,12 @@ import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.User;
 import com.example.handlecare.repository.UserRepository;
-import com.example.handlecare.security.email.EmailSender;
 import com.example.handlecare.security.email.EmailSenderImpl;
-import com.example.handlecare.security.token.ConfirmationToken;
 import com.example.handlecare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
-import static com.example.handlecare.entity.enums.Status.*;
+import static com.example.handlecare.entity.enums.Status.UNCHECKED;
 
 
 @Service

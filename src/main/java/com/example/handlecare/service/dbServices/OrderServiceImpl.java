@@ -6,7 +6,6 @@ import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.enums.Progression;
 import com.example.handlecare.repository.OrderRepository;
 import com.example.handlecare.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,16 +1,13 @@
 package com.example.handlecare.service.dbServices;
 
 import com.example.handlecare.entity.Deliver;
-import com.example.handlecare.entity.User;
 import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.repository.DeliverRepository;
 import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.DeliverService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service

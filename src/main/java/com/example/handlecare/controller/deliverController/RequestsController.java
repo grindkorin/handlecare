@@ -2,10 +2,8 @@ package com.example.handlecare.controller.deliverController;
 
 import com.example.handlecare.entity.Order;
 import com.example.handlecare.entity.Recipient;
-import com.example.handlecare.entity.enums.Progression;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.OrderServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,8 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.handlecare.entity.enums.Progression.*;
-import static com.example.handlecare.entity.enums.Progression.COMPLETE;
+import static com.example.handlecare.entity.enums.Progression.FRESH;
 import static com.example.handlecare.entity.enums.Progression.INACTION;
 
 @Controller("/deliver/requests")
