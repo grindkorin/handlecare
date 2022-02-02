@@ -50,8 +50,9 @@ public class RegistrationController {
     }
 
     @GetMapping("registration/confirm")
-    public String confirm(@RequestParam("token") String token) {
+    public String confirm(@RequestParam("token") String token, Model model) {
         registrationService.confirmToken(token);
+        model.addAttribute("message", "Вам на почту будет отправлен код подтверждения");
         return "redirect:/authorization";
     }
 }

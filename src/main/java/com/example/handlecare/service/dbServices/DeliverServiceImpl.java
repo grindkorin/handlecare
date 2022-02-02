@@ -69,13 +69,19 @@ public class DeliverServiceImpl implements DeliverService {
     }
 
     @Override
+    public Integer deleteDeliverByEmail(String email) {
+        return repository.deleteDeliverByEmail(email);
+    }
+
+    @Override
     public List<Deliver> saveAll(List<Deliver> delivers) {
-        return null;
+        return repository.saveAll(delivers);
     }
 
     @Override
     public String showName(Integer id) {
-        Deliver deliver = getById(id);
-        return deliver.getName();
+        return repository.getById(id).getName();
     }
+
+
 }

@@ -16,5 +16,6 @@ public interface RecipientService {
     List<Recipient> findAllByStatus(Status status);
     Recipient save(Recipient recipient);
     List<Recipient> saveAll(List<Recipient> recipients);
+    Integer deleteRecipientByEmail(String email);
 
 }

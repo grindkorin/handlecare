@@ -13,4 +13,5 @@ public interface DeliverRepository extends JpaRepository<Deliver, Integer> {
     Deliver findByEmail(String email);
     Deliver findByPhoneNumber(String phoneNumber);
     List<Deliver> findAllByStatus(Status status);
+    Integer deleteDeliverByEmail(String email);
 }

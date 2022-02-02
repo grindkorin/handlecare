@@ -41,8 +41,9 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
         return repository.findByToken(token);
     }
 
+
     public ConfirmationToken saveAndBondToken(User user) {
-       return repository.save(bondNewToken(user));
+        return repository.save(bondNewToken(user));
     }
 
 
@@ -52,5 +53,14 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
         return repository.save(thisToken);
     }
 
+    @Override
+    public Integer deleteByDeliver(Deliver deliver) {
+        return repository.deleteByDeliver(deliver);
+    }
+
+    @Override
+    public Integer deleteByRecipient(Recipient recipient) {
+        return repository.deleteByRecipient(recipient);
+    }
 
 }

@@ -13,4 +13,5 @@ public interface RecipientRepository extends JpaRepository<Recipient, Integer> {
     Recipient findByEmail(String email);
     Recipient findByPhoneNumber(String phoneNumber);
     List<Recipient> findAllByStatus(Status status);
+    Integer deleteRecipientByEmail(String email);
 }

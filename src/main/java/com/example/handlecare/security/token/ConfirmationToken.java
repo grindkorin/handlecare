@@ -41,17 +41,18 @@ public class ConfirmationToken {
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
                              Deliver deliver) {
+        this.id = null;
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-           this.deliver = deliver;
+        this.deliver = deliver;
     }
 
     public ConfirmationToken(String token,
                              LocalDateTime createdAt,
                              LocalDateTime expiresAt,
                              Recipient recipient) {
-
+        this.id = null;
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;

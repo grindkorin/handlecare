@@ -1,6 +1,10 @@
 package com.example.handlecare;
 
 
+import com.example.handlecare.entity.Deliver;
+import com.example.handlecare.entity.User;
+import com.example.handlecare.entity.enums.Roles;
+import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
@@ -33,6 +37,7 @@ public class HandleCareApplication {
 //                        "+112", "this", Status.ACTIVE, Roles.ADMIN)
 //        );
 //        deliver.setRole(Roles.ADMIN);
+//        deliver.setConfirmedMail(true);
 //        deliverService.save(deliver);
     }
 

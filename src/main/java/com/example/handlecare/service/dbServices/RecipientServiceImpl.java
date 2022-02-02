@@ -71,4 +71,11 @@ public class RecipientServiceImpl implements RecipientService {
     public List<Recipient> saveAll(List<Recipient> recipients) {
         return repository.saveAll(recipients);
     }
+
+    @Override
+    public Integer deleteRecipientByEmail(String email) {
+        return repository.deleteRecipientByEmail(email);
+    }
+
+
 }

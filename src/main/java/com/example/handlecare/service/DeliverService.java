@@ -14,6 +14,7 @@ public interface DeliverService {
     Deliver updateDeliver(Deliver deliver);
     List<Deliver> findAll();
     List<Deliver> findAllByStatus(Status status);
+    Integer deleteDeliverByEmail(String email);
     List<Deliver> saveAll(List<Deliver> delivers);
     String showName(Integer id);
 }

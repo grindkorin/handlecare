@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" th:href="@{img/favicon.ico}" type="image/x-con">
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Handle care - онлайн сервис с доставкой от курьеров из числа волонтёров.</title>
 </head>
 <body>
@@ -20,8 +20,8 @@
 
         <form th:action="@{/register}" method="post" th:object="${user}">
             <div class="user-box">
-                    <input type="text" name="login" required="" field="*{login}">
-                   <label>Логин</label>
+                <input type="text" name="login" required="" field="*{login}">
+                <label>Логин</label>
             </div>
             <div class="user-box">
                 <input type="password" name="password" required="" field="*{password}">
@@ -44,15 +44,17 @@
                 <label>Номер телефона</label>
             </div>
             <div class="radio">
-                <input type="radio" id="recipient" name="type" value="recipient"  field="*{type}" required="">
+                <input type="radio" id="recipient" name="type" value="recipient" field="*{type}" required="">
                 <label for="recipient">Получатель</label>
                 <input type="radio" id="deliver" name="type" value="deliver" field="*{type}" required="">
                 <label for="deliver">Доставщик</label>
             </div>
-
             <input type="submit" value="Подтвердить">
             <input type="reset" value="Отмена">
-            <p> Вы уже с зарегистрированы? <br><a href="authorization" id="reg">Вход</a> </p>
+            <p> Вы уже с зарегистрированы? <br><a href="authorization" id="reg">Вход</a></p>
+            <br>
+            <p>Вам на почту будет отправлено подтверждение, пожалуйста, перейдите по ссылке в письме для доступа к
+                сайту</p>
         </form>
     </div>
 </section>

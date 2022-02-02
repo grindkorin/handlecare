@@ -74,5 +74,4 @@ public class Recipient extends User {
         recipient.setRole(RECIPIENT);
     }
 
-
 }
