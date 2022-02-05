@@ -496,7 +496,7 @@ input[type=reset]:hover {
     box-shadow: 0 0 5px #03e9f4;
 }
 
-.login-box p, #reg {
+.login-box p, #reg, #forgot {
     color: white;
     font-size: 12px;
     text-align: center;
@@ -504,7 +504,8 @@ input[type=reset]:hover {
     text-transform: none;
 }
 
-#reg:hover {
+#reg:hover,
+#forgot:hover {
     background: none;
 }
 

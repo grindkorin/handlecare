@@ -7,8 +7,8 @@ import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.User;
 import com.example.handlecare.repository.UserRepository;
 import com.example.handlecare.security.email.EmailSenderImpl;
+import com.example.handlecare.security.token.ConfirmationToken;
 import com.example.handlecare.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,23 +17,28 @@ import static com.example.handlecare.entity.enums.Status.UNCHECKED;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+
+    final
     UserRepository userRepository;
-
-    @Autowired
+    final
     DeliverServiceImpl deliverService;
-
-    @Autowired
+    final
     RecipientServiceImpl recipientService;
-
-    @Autowired
+    final
     UserDtoConverter converter;
-
-    @Autowired
+    final
     ConfirmationTokenServiceImpl tokenService;
-
-    @Autowired
+    final
     EmailSenderImpl emailSender;
+
+    public UserServiceImpl(UserRepository userRepository, DeliverServiceImpl deliverService, RecipientServiceImpl recipientService, UserDtoConverter converter, ConfirmationTokenServiceImpl tokenService, EmailSenderImpl emailSender) {
+        this.userRepository = userRepository;
+        this.deliverService = deliverService;
+        this.recipientService = recipientService;
+        this.converter = converter;
+        this.tokenService = tokenService;
+        this.emailSender = emailSender;
+    }
 
     @Transactional
     @Override
@@ -43,10 +48,8 @@ public class UserServiceImpl implements UserService {
         String phoneNumber = userDto.getPhoneNumber();
         if (notConfirmedEmail(email)) {
             deleteNotConfirmedUser(email);
-            System.out.println("\n\n\n DELETED \n\n\n");
         }
         if (loginCheck(login) & phoneNumberCheck(phoneNumber) & (emailCheck(email))) {
-            System.out.println("\n\n\nCHECK\n\n\n");
             User user = converter.fromDto(userDto);
             user.setStatus(UNCHECKED);
             return user;
@@ -104,16 +107,34 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-        public void deleteNotConfirmedUser (String email){
-            if (deliverService.findByEmail(email) != null) {
-                tokenService.deleteByDeliver(deliverService.findByEmail(email));
-                deliverService.deleteDeliverByEmail(email);
-            } else if (recipientService.findByEmail(email) != null) {
-                tokenService.deleteByRecipient(recipientService.findByEmail(email));
-                recipientService.deleteRecipientByEmail(email);
-            } else {
-                System.out.println("\n\n\nNOT FOUND");
-            }
+    public void deleteNotConfirmedUser(String email) {
+        if (deliverService.findByEmail(email) != null) {
+            tokenService.deleteByDeliver(deliverService.findByEmail(email));
+            deliverService.deleteDeliverByEmail(email);
+        } else if (recipientService.findByEmail(email) != null) {
+            tokenService.deleteByRecipient(recipientService.findByEmail(email));
+            recipientService.deleteRecipientByEmail(email);
+        } else {
+            System.out.println("NOT FOUND");
         }
-
     }
+
+    public User findByEmail(String email) {
+        if (deliverService.findByEmail(email) != null) {
+            return deliverService.findByEmail(email);
+        } else if (recipientService.findByEmail(email) != null) {
+            return recipientService.findByEmail(email);
+        }
+        throw new IllegalStateException("Пользователь не найден");
+    }
+
+    public User getByToken(String token) {
+        ConfirmationToken confirmationToken = tokenService.findByToken(token);
+        if (confirmationToken.getDeliver() != null) {
+            return confirmationToken.getDeliver();
+        } else if (confirmationToken.getRecipient() != null) {
+            return confirmationToken.getRecipient();
+        }
+        throw new IllegalStateException("Пользователь не найден");
+    }
+}

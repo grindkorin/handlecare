@@ -2,12 +2,15 @@ package com.example.handlecare;
 
 
 import com.example.handlecare.entity.Deliver;
+import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.User;
 import com.example.handlecare.entity.enums.Roles;
 import com.example.handlecare.entity.enums.Status;
+import com.example.handlecare.repository.ConfirmationTokenRepository;
 import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;
 import com.example.handlecare.service.dbServices.RecipientServiceImpl;
+import com.example.handlecare.service.dbServices.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +28,10 @@ public class HandleCareApplication {
     DeliverServiceImpl deliverService;
     @Autowired
     RecipientServiceImpl recipientService;
-
+    @Autowired
+    UserServiceImpl userService;
+    @Autowired
+    ConfirmationTokenRepository repository;
     @Autowired
     PasswordConfig passwordConfig;
 

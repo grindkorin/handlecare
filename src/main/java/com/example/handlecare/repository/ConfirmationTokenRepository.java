@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Integer> {
     ConfirmationToken findByToken(String token);
+    ConfirmationToken findByRecipient(Recipient recipient);
+    ConfirmationToken findByDeliver(Deliver deliver);
     List<ConfirmationToken> findAllByToken(String token);
     Integer deleteByRecipient(Recipient recipient);
     Integer deleteByDeliver(Deliver deliver);

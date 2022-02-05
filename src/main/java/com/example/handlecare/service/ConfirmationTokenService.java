@@ -9,6 +9,9 @@ public interface ConfirmationTokenService {
     ConfirmationToken saveConfirmationToken(ConfirmationToken token);
     ConfirmationToken bondNewToken(User user);
     ConfirmationToken findByToken(String token);
-    Integer deleteByDeliver(Deliver deliver);
+    ConfirmationToken findByRecipient(Recipient recipient);
+    ConfirmationToken findByDeliver(Deliver deliver);
     Integer deleteByRecipient(Recipient recipient);
+    Integer deleteByDeliver(Deliver deliver);
+
 }

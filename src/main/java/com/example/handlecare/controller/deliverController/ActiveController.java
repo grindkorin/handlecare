@@ -38,7 +38,6 @@ public class ActiveController {
 
     @GetMapping("/deliver/active")
     public String active(Authentication authentication, ModelMap model) {
-        //TODO получение пользователя из сессии
         List<Order> orders = orderService.findAllByDeliverAndProgression(
                 deliverService.findByLogin(authentication.getName()), Progression.INACTION);
         List<Recipient> recipients = orders.stream().map(Order::getRecipient).collect(Collectors.toList());

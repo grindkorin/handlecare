@@ -30,3 +30,11 @@ function hide() {
 let userPic = document.getElementById("userPic");
 userPic.onclick.caller(hide());
 
+//passResetCheck НЕ РАБОТАЕТ! Проверить TODO
+function checkPasswordMatch(fieldConfirmPassword) {
+    if (fieldConfirmPassword.value != $("#password").val()) {
+        fieldConfirmPassword.setCustomValidity("Passwords do not match!");
+    } else {
+        fieldConfirmPassword.setCustomValidity("");
+    }
+}

@@ -1,55 +1,70 @@
 package com.example.handlecare.service.dbServices;
 
 import com.example.handlecare.dto.UserDto;
+import com.example.handlecare.entity.Deliver;
+import com.example.handlecare.entity.Recipient;
+import com.example.handlecare.entity.User;
+import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.security.email.EmailSenderImpl;
 import com.example.handlecare.security.token.ConfirmationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-
 @Service
-public class RegistrationService {
-    final
+public class ForgotPasswordService {
+    @Autowired
     ConfirmationTokenServiceImpl tokenService;
-    final
+    @Autowired
     UserServiceImpl userService;
-    final
+    @Autowired
+    RecipientServiceImpl recipientService;
+    @Autowired
+    DeliverServiceImpl deliverService;
+    @Autowired
     EmailSenderImpl emailSender;
-
-    public RegistrationService(ConfirmationTokenServiceImpl tokenService, UserServiceImpl userService, EmailSenderImpl emailSender) {
-        this.tokenService = tokenService;
-        this.userService = userService;
-        this.emailSender = emailSender;
-    }
+    @Autowired
+    PasswordConfig passwordConfig;
 
 
-    @Transactional
-    public void confirmToken(String token) {
-        ConfirmationToken confirmationToken = tokenService.findByToken(token);
-        if (confirmationToken == null)
-            throw new IllegalStateException("Токен не найден");
-        if (confirmationToken.getConfirmedAt() != null)
-            throw new IllegalStateException("E-mail уже подтвержден");
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-        if (expiredAt.isBefore(LocalDateTime.now()))
-            throw new IllegalStateException("Токен просрочен");
-        tokenService.setConfirmedAt(token);
-        if (confirmationToken.getDeliver() != null) {
-            userService.setMailConfirmed(confirmationToken.getDeliver().getEmail());
+    public boolean resetPasswordConfirmToken(String token) {
+        ConfirmationToken resetToken = tokenService.findByToken(token);
+        if (resetToken != null) {
+            return true;
         } else {
-            userService.setMailConfirmed(confirmationToken.getRecipient().getEmail());
+            throw new IllegalStateException("Токен не найден");
         }
     }
 
-
-    public void sendEmail(UserDto dto, ConfirmationToken token) {
-        String link = "http://localhost:8080/registration/confirm?token=" + token.getToken();
-        String email = buildEmail(dto.getName(), link);
-        emailSender.send(dto.getEmail(), "Подтверждение адреса почты" , email);
+    public void resetPassword(String token, String password) {
+        User user = userService.getByToken(token);
+        Deliver deliver = tokenService.findByToken(token)
+                .getDeliver();
+        if (user != null) {
+            deliver.setPassword(passwordConfig.passwordEncoder().encode(password));
+            deliverService.save(deliver);
+        } else if (deliver == null) {
+            Recipient recipient = tokenService.findByToken(token).getRecipient();
+            recipient.setPassword(passwordConfig.passwordEncoder().encode(password));
+            recipientService.save(recipient);
+        } else {
+            throw new IllegalStateException("Токен не найден");
+        }
     }
 
+    public void forgetPassword(String email) {
+        User byEmail = userService.findByEmail(email);
+        ConfirmationToken token = tokenService.findByDeliver(deliverService.findByEmail(email));
+        if (token == null)
+            token = tokenService.findByRecipient(recipientService.findByEmail(email));
+        sendResetEmail(byEmail, token);
+    }
+
+    public void sendResetEmail(User user, ConfirmationToken token) {
+//        String link = "http://localhost:8080/forgot_password/confirm?token=" + token.getToken();
+        String link = "http://localhost:8080/reset_password?token=" + token.getToken();
+        String email = buildEmail(user.getName(), link);
+        emailSender.send(user.getEmail(), "Сброс пароля", email);
+    }
 
 
     public String buildEmail(String name, String link) {
@@ -70,7 +85,7 @@ public class RegistrationService {
                 "                  \n" +
                 "                    </td>\n" +
                 "                    <td style=\"font-size:28px;line-height:1.315789474;Margin-top:4px;padding-left:10px\">\n" +
-                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Подтверждение адреса почты</span>\n" +
+                "                      <span style=\"font-family:Helvetica,Arial,sans-serif;font-weight:700;color:#ffffff;text-decoration:none;vertical-align:top;display:inline-block\">Сброс пароля</span>\n" +
                 "                    </td>\n" +
                 "                  </tr>\n" +
                 "                </tbody></table>\n" +
@@ -108,7 +123,7 @@ public class RegistrationService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Здравствуйте, " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> пожалуйста, перейдите по ссылке, для подтверждения адреса электроной почты: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Активировать</a> </p></blockquote>\n Ссылка действует в течении 30 минут. <p>Если вы не регистрировались на сайте, то игнорируйте это сообщение</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Здравствуйте, " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> пожалуйста, перейдите по ссылке, для сброса пароля: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Активировать</a> </p></blockquote>\n  <p>Если вы не просили об этом, то игнорируйте сообщение</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

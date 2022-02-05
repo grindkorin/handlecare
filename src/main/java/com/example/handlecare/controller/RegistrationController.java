@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -50,9 +51,8 @@ public class RegistrationController {
     }
 
     @GetMapping("registration/confirm")
-    public String confirm(@RequestParam("token") String token, Model model) {
+    public String confirm(@RequestParam("token") String token) {
         registrationService.confirmToken(token);
-        model.addAttribute("message", "Вам на почту будет отправлен код подтверждения");
         return "redirect:/authorization";
     }
 }
