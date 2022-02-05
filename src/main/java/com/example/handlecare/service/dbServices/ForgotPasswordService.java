@@ -1,6 +1,5 @@
 package com.example.handlecare.service.dbServices;
 
-import com.example.handlecare.dto.UserDto;
 import com.example.handlecare.entity.Deliver;
 import com.example.handlecare.entity.Recipient;
 import com.example.handlecare.entity.User;

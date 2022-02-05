@@ -1,11 +1,6 @@
 package com.example.handlecare;
 
 
-import com.example.handlecare.entity.Deliver;
-import com.example.handlecare.entity.Recipient;
-import com.example.handlecare.entity.User;
-import com.example.handlecare.entity.enums.Roles;
-import com.example.handlecare.entity.enums.Status;
 import com.example.handlecare.repository.ConfirmationTokenRepository;
 import com.example.handlecare.security.PasswordConfig;
 import com.example.handlecare.service.dbServices.DeliverServiceImpl;

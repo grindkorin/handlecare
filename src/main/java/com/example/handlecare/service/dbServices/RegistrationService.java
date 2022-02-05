@@ -3,7 +3,6 @@ package com.example.handlecare.service.dbServices;
 import com.example.handlecare.dto.UserDto;
 import com.example.handlecare.security.email.EmailSenderImpl;
 import com.example.handlecare.security.token.ConfirmationToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
